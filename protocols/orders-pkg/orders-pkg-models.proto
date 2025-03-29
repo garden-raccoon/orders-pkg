@@ -1,0 +1,24 @@
+syntax = "proto3";
+package models;
+
+option go_package = "protocols/orders-pkg";
+
+message Order {
+    bytes           order_uuid        = 1;
+    bytes           user_uuid         = 2;
+    int64           order_status      = 3;
+    Params          params             = 4;
+}
+message Orders {
+    repeated Order Orders = 1;
+}
+message Params{
+    repeated Param Params = 1;
+}
+message Param{
+    bytes           meal_uuid             = 1;
+    bytes           delivery_uuid         = 2;
+    int64           date                  = 3;
+    int64           quantity               =4;
+}
+

@@ -1,0 +1,34 @@
+syntax = "proto3";
+package models;
+
+option go_package = "protocols/orders-pkg";
+
+import "orders-pkg-models.proto";
+
+// OrderService is
+service OrdersService {
+    rpc CreateOrUpdateOrder(models.Order) returns(OrdersEmpty);
+    rpc GetOrders(OrdersEmpty) returns(models.Orders);
+
+    // OrdersByUserUuid could return either one or several orders because user could have more than 1
+    rpc OrdersByUserUuid(ByUserUuidReq) returns(models.Orders);
+
+    // could be only single order by its unique id
+    rpc OrderByOrderUuid(ByOrderUuidReq) returns(models.Order);
+
+
+    rpc DeleteOrder(OrderDeleteReq) returns(OrdersEmpty);
+
+}
+
+message OrderDeleteReq {
+    bytes order_uuid = 1;
+}
+message OrdersEmpty {}
+
+message ByOrderUuidReq {
+    bytes   order_uuid    = 1;
+}
+message ByUserUuidReq {
+   bytes   user_uuid    = 1;
+}
