@@ -16,7 +16,7 @@ func ParamToProto(p *Param) *proto.Param {
 }
 
 func ParamsToProto(p []*Param) *proto.Params {
-	var protoParams *proto.Params
+	protoParams := &proto.Params{}
 	for i := range p {
 		protoParams.Params = append(protoParams.Params, ParamToProto(p[i]))
 	}
