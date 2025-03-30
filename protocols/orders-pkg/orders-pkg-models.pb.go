@@ -180,9 +180,8 @@ func (x *Params) GetParams() []*Param {
 type Param struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MealUuid      []byte                 `protobuf:"bytes,1,opt,name=meal_uuid,json=mealUuid,proto3" json:"meal_uuid,omitempty"`
-	DeliveryUuid  []byte                 `protobuf:"bytes,2,opt,name=delivery_uuid,json=deliveryUuid,proto3" json:"delivery_uuid,omitempty"`
-	Date          int64                  `protobuf:"varint,3,opt,name=date,proto3" json:"date,omitempty"`
-	Quantity      int64                  `protobuf:"varint,4,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	Date          int64                  `protobuf:"varint,2,opt,name=date,proto3" json:"date,omitempty"`
+	Quantity      int64                  `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -224,13 +223,6 @@ func (x *Param) GetMealUuid() []byte {
 	return nil
 }
 
-func (x *Param) GetDeliveryUuid() []byte {
-	if x != nil {
-		return x.DeliveryUuid
-	}
-	return nil
-}
-
 func (x *Param) GetDate() int64 {
 	if x != nil {
 		return x.Date
@@ -259,12 +251,11 @@ const file_orders_pkg_models_proto_rawDesc = "" +
 	"\x06Orders\x12%\n" +
 	"\x06Orders\x18\x01 \x03(\v2\r.models.OrderR\x06Orders\"/\n" +
 	"\x06Params\x12%\n" +
-	"\x06Params\x18\x01 \x03(\v2\r.models.ParamR\x06Params\"y\n" +
+	"\x06Params\x18\x01 \x03(\v2\r.models.ParamR\x06Params\"T\n" +
 	"\x05Param\x12\x1b\n" +
-	"\tmeal_uuid\x18\x01 \x01(\fR\bmealUuid\x12#\n" +
-	"\rdelivery_uuid\x18\x02 \x01(\fR\fdeliveryUuid\x12\x12\n" +
-	"\x04date\x18\x03 \x01(\x03R\x04date\x12\x1a\n" +
-	"\bquantity\x18\x04 \x01(\x03R\bquantityB\x16Z\x14protocols/orders-pkgb\x06proto3"
+	"\tmeal_uuid\x18\x01 \x01(\fR\bmealUuid\x12\x12\n" +
+	"\x04date\x18\x02 \x01(\x03R\x04date\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x03R\bquantityB\x16Z\x14protocols/orders-pkgb\x06proto3"
 
 var (
 	file_orders_pkg_models_proto_rawDescOnce sync.Once

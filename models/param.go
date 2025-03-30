@@ -8,10 +8,9 @@ import (
 
 func ParamToProto(p *Param) *proto.Param {
 	return &proto.Param{
-		MealUuid:     p.MealUuid.Bytes(),
-		DeliveryUuid: p.DeliveryUuid.Bytes(),
-		Date:         p.Date.Unix(),
-		Quantity:     int64(p.Quantity),
+		MealUuid: p.MealUuid.Bytes(),
+		Date:     p.Date.Unix(),
+		Quantity: int64(p.Quantity),
 	}
 }
 
@@ -25,10 +24,9 @@ func ParamsToProto(p []*Param) *proto.Params {
 
 func ParamFromProto(pb *proto.Param) *Param {
 	return &Param{
-		MealUuid:     uuid.FromBytesOrNil(pb.MealUuid),
-		DeliveryUuid: uuid.FromBytesOrNil(pb.DeliveryUuid),
-		Quantity:     int(pb.Quantity),
-		Date:         time.Unix(pb.Date, 0),
+		MealUuid: uuid.FromBytesOrNil(pb.MealUuid),
+		Quantity: int(pb.Quantity),
+		Date:     time.Unix(pb.Date, 0),
 	}
 }
 

@@ -17,8 +17,7 @@ message Params{
 }
 message Param{
     bytes           meal_uuid             = 1;
-    bytes           delivery_uuid         = 2;
-    int64           date                  = 3;
-    int64           quantity               =4;
+    int64           date                  = 2;
+    int64           quantity               =3;
 }
 
