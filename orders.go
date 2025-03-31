@@ -97,7 +97,6 @@ func (api *Api) CreateOrUpdateOrder(s *models.Order) (uuid.UUID, error) {
 	if err != nil {
 		return uuid.Nil, fmt.Errorf("create orders api request: %w", err)
 	}
-	resp.OrderUuid = s.OrderUuid.Bytes()
 	return uuid.FromBytesOrNil(resp.OrderUuid), nil
 }
 
