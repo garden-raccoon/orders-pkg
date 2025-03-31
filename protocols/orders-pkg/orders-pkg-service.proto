@@ -7,7 +7,7 @@ import "orders-pkg-models.proto";
 
 // OrderService is
 service OrdersService {
-    rpc CreateOrUpdateOrder(models.Order) returns(OrdersEmpty);
+    rpc CreateOrUpdateOrder(models.Order) returns(CreateOrUpdateResponse);
     rpc GetOrders(OrdersEmpty) returns(models.Orders);
 
     // OrdersByUserUuid could return either one or several orders because user could have more than 1
@@ -20,7 +20,9 @@ service OrdersService {
     rpc DeleteOrder(OrderDeleteReq) returns(OrdersEmpty);
 
 }
-
+message CreateOrUpdateResponse{
+    bytes order_uuid = 1;
+}
 message OrderDeleteReq {
     bytes order_uuid = 1;
 }

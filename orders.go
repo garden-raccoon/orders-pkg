@@ -24,7 +24,7 @@ import (
 var Debug = true
 
 type OrdersPkgAPI interface {
-	CreateOrUpdateOrder(s *models.Order) error
+	CreateOrUpdateOrder(s *models.Order) (uuid.UUID, error)
 	GetOrders() ([]*models.Order, error)
 	DeleteOrder(orderUuid uuid.UUID) error
 	OrdersByUserUuid(userUuid uuid.UUID) ([]*models.Order, error)
@@ -90,14 +90,15 @@ func (api *Api) GetOrders() ([]*models.Order, error) {
 	return orders, nil
 }
 
-func (api *Api) CreateOrUpdateOrder(s *models.Order) (err error) {
+func (api *Api) CreateOrUpdateOrder(s *models.Order) (uuid.UUID, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), api.timeout)
 	defer cancel()
-	_, err = api.OrdersServiceClient.CreateOrUpdateOrder(ctx, models.Proto(s))
+	resp, err := api.OrdersServiceClient.CreateOrUpdateOrder(ctx, models.Proto(s))
 	if err != nil {
-		return fmt.Errorf("create orders api request: %w", err)
+		return uuid.Nil, fmt.Errorf("create orders api request: %w", err)
 	}
-	return nil
+	resp.OrderUuid = s.OrderUuid.Bytes()
+	return uuid.FromBytesOrNil(resp.OrderUuid), nil
 }
 
 // initConn initialize connection to Grpc servers

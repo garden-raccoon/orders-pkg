@@ -21,6 +21,50 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type CreateOrUpdateResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderUuid     []byte                 `protobuf:"bytes,1,opt,name=order_uuid,json=orderUuid,proto3" json:"order_uuid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateOrUpdateResponse) Reset() {
+	*x = CreateOrUpdateResponse{}
+	mi := &file_orders_pkg_service_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateOrUpdateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateOrUpdateResponse) ProtoMessage() {}
+
+func (x *CreateOrUpdateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_orders_pkg_service_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateOrUpdateResponse.ProtoReflect.Descriptor instead.
+func (*CreateOrUpdateResponse) Descriptor() ([]byte, []int) {
+	return file_orders_pkg_service_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreateOrUpdateResponse) GetOrderUuid() []byte {
+	if x != nil {
+		return x.OrderUuid
+	}
+	return nil
+}
+
 type OrderDeleteReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderUuid     []byte                 `protobuf:"bytes,1,opt,name=order_uuid,json=orderUuid,proto3" json:"order_uuid,omitempty"`
@@ -30,7 +74,7 @@ type OrderDeleteReq struct {
 
 func (x *OrderDeleteReq) Reset() {
 	*x = OrderDeleteReq{}
-	mi := &file_orders_pkg_service_proto_msgTypes[0]
+	mi := &file_orders_pkg_service_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +86,7 @@ func (x *OrderDeleteReq) String() string {
 func (*OrderDeleteReq) ProtoMessage() {}
 
 func (x *OrderDeleteReq) ProtoReflect() protoreflect.Message {
-	mi := &file_orders_pkg_service_proto_msgTypes[0]
+	mi := &file_orders_pkg_service_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +99,7 @@ func (x *OrderDeleteReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderDeleteReq.ProtoReflect.Descriptor instead.
 func (*OrderDeleteReq) Descriptor() ([]byte, []int) {
-	return file_orders_pkg_service_proto_rawDescGZIP(), []int{0}
+	return file_orders_pkg_service_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *OrderDeleteReq) GetOrderUuid() []byte {
@@ -73,7 +117,7 @@ type OrdersEmpty struct {
 
 func (x *OrdersEmpty) Reset() {
 	*x = OrdersEmpty{}
-	mi := &file_orders_pkg_service_proto_msgTypes[1]
+	mi := &file_orders_pkg_service_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -85,7 +129,7 @@ func (x *OrdersEmpty) String() string {
 func (*OrdersEmpty) ProtoMessage() {}
 
 func (x *OrdersEmpty) ProtoReflect() protoreflect.Message {
-	mi := &file_orders_pkg_service_proto_msgTypes[1]
+	mi := &file_orders_pkg_service_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -98,7 +142,7 @@ func (x *OrdersEmpty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrdersEmpty.ProtoReflect.Descriptor instead.
 func (*OrdersEmpty) Descriptor() ([]byte, []int) {
-	return file_orders_pkg_service_proto_rawDescGZIP(), []int{1}
+	return file_orders_pkg_service_proto_rawDescGZIP(), []int{2}
 }
 
 type ByOrderUuidReq struct {
@@ -110,7 +154,7 @@ type ByOrderUuidReq struct {
 
 func (x *ByOrderUuidReq) Reset() {
 	*x = ByOrderUuidReq{}
-	mi := &file_orders_pkg_service_proto_msgTypes[2]
+	mi := &file_orders_pkg_service_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -122,7 +166,7 @@ func (x *ByOrderUuidReq) String() string {
 func (*ByOrderUuidReq) ProtoMessage() {}
 
 func (x *ByOrderUuidReq) ProtoReflect() protoreflect.Message {
-	mi := &file_orders_pkg_service_proto_msgTypes[2]
+	mi := &file_orders_pkg_service_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -135,7 +179,7 @@ func (x *ByOrderUuidReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ByOrderUuidReq.ProtoReflect.Descriptor instead.
 func (*ByOrderUuidReq) Descriptor() ([]byte, []int) {
-	return file_orders_pkg_service_proto_rawDescGZIP(), []int{2}
+	return file_orders_pkg_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ByOrderUuidReq) GetOrderUuid() []byte {
@@ -154,7 +198,7 @@ type ByUserUuidReq struct {
 
 func (x *ByUserUuidReq) Reset() {
 	*x = ByUserUuidReq{}
-	mi := &file_orders_pkg_service_proto_msgTypes[3]
+	mi := &file_orders_pkg_service_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -166,7 +210,7 @@ func (x *ByUserUuidReq) String() string {
 func (*ByUserUuidReq) ProtoMessage() {}
 
 func (x *ByUserUuidReq) ProtoReflect() protoreflect.Message {
-	mi := &file_orders_pkg_service_proto_msgTypes[3]
+	mi := &file_orders_pkg_service_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -179,7 +223,7 @@ func (x *ByUserUuidReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ByUserUuidReq.ProtoReflect.Descriptor instead.
 func (*ByUserUuidReq) Descriptor() ([]byte, []int) {
-	return file_orders_pkg_service_proto_rawDescGZIP(), []int{3}
+	return file_orders_pkg_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ByUserUuidReq) GetUserUuid() []byte {
@@ -193,7 +237,10 @@ var File_orders_pkg_service_proto protoreflect.FileDescriptor
 
 const file_orders_pkg_service_proto_rawDesc = "" +
 	"\n" +
-	"\x18orders-pkg-service.proto\x12\x06models\x1a\x17orders-pkg-models.proto\"/\n" +
+	"\x18orders-pkg-service.proto\x12\x06models\x1a\x17orders-pkg-models.proto\"7\n" +
+	"\x16CreateOrUpdateResponse\x12\x1d\n" +
+	"\n" +
+	"order_uuid\x18\x01 \x01(\fR\torderUuid\"/\n" +
 	"\x0eOrderDeleteReq\x12\x1d\n" +
 	"\n" +
 	"order_uuid\x18\x01 \x01(\fR\torderUuid\"\r\n" +
@@ -202,9 +249,9 @@ const file_orders_pkg_service_proto_rawDesc = "" +
 	"\n" +
 	"order_uuid\x18\x01 \x01(\fR\torderUuid\",\n" +
 	"\rByUserUuidReq\x12\x1b\n" +
-	"\tuser_uuid\x18\x01 \x01(\fR\buserUuid2\xae\x02\n" +
-	"\rOrdersService\x129\n" +
-	"\x13CreateOrUpdateOrder\x12\r.models.Order\x1a\x13.models.OrdersEmpty\x120\n" +
+	"\tuser_uuid\x18\x01 \x01(\fR\buserUuid2\xb9\x02\n" +
+	"\rOrdersService\x12D\n" +
+	"\x13CreateOrUpdateOrder\x12\r.models.Order\x1a\x1e.models.CreateOrUpdateResponse\x120\n" +
 	"\tGetOrders\x12\x13.models.OrdersEmpty\x1a\x0e.models.Orders\x129\n" +
 	"\x10OrdersByUserUuid\x12\x15.models.ByUserUuidReq\x1a\x0e.models.Orders\x129\n" +
 	"\x10OrderByOrderUuid\x12\x16.models.ByOrderUuidReq\x1a\r.models.Order\x12:\n" +
@@ -222,26 +269,27 @@ func file_orders_pkg_service_proto_rawDescGZIP() []byte {
 	return file_orders_pkg_service_proto_rawDescData
 }
 
-var file_orders_pkg_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_orders_pkg_service_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_orders_pkg_service_proto_goTypes = []any{
-	(*OrderDeleteReq)(nil), // 0: models.OrderDeleteReq
-	(*OrdersEmpty)(nil),    // 1: models.OrdersEmpty
-	(*ByOrderUuidReq)(nil), // 2: models.ByOrderUuidReq
-	(*ByUserUuidReq)(nil),  // 3: models.ByUserUuidReq
-	(*Order)(nil),          // 4: models.Order
-	(*Orders)(nil),         // 5: models.Orders
+	(*CreateOrUpdateResponse)(nil), // 0: models.CreateOrUpdateResponse
+	(*OrderDeleteReq)(nil),         // 1: models.OrderDeleteReq
+	(*OrdersEmpty)(nil),            // 2: models.OrdersEmpty
+	(*ByOrderUuidReq)(nil),         // 3: models.ByOrderUuidReq
+	(*ByUserUuidReq)(nil),          // 4: models.ByUserUuidReq
+	(*Order)(nil),                  // 5: models.Order
+	(*Orders)(nil),                 // 6: models.Orders
 }
 var file_orders_pkg_service_proto_depIdxs = []int32{
-	4, // 0: models.OrdersService.CreateOrUpdateOrder:input_type -> models.Order
-	1, // 1: models.OrdersService.GetOrders:input_type -> models.OrdersEmpty
-	3, // 2: models.OrdersService.OrdersByUserUuid:input_type -> models.ByUserUuidReq
-	2, // 3: models.OrdersService.OrderByOrderUuid:input_type -> models.ByOrderUuidReq
-	0, // 4: models.OrdersService.DeleteOrder:input_type -> models.OrderDeleteReq
-	1, // 5: models.OrdersService.CreateOrUpdateOrder:output_type -> models.OrdersEmpty
-	5, // 6: models.OrdersService.GetOrders:output_type -> models.Orders
-	5, // 7: models.OrdersService.OrdersByUserUuid:output_type -> models.Orders
-	4, // 8: models.OrdersService.OrderByOrderUuid:output_type -> models.Order
-	1, // 9: models.OrdersService.DeleteOrder:output_type -> models.OrdersEmpty
+	5, // 0: models.OrdersService.CreateOrUpdateOrder:input_type -> models.Order
+	2, // 1: models.OrdersService.GetOrders:input_type -> models.OrdersEmpty
+	4, // 2: models.OrdersService.OrdersByUserUuid:input_type -> models.ByUserUuidReq
+	3, // 3: models.OrdersService.OrderByOrderUuid:input_type -> models.ByOrderUuidReq
+	1, // 4: models.OrdersService.DeleteOrder:input_type -> models.OrderDeleteReq
+	0, // 5: models.OrdersService.CreateOrUpdateOrder:output_type -> models.CreateOrUpdateResponse
+	6, // 6: models.OrdersService.GetOrders:output_type -> models.Orders
+	6, // 7: models.OrdersService.OrdersByUserUuid:output_type -> models.Orders
+	5, // 8: models.OrdersService.OrderByOrderUuid:output_type -> models.Order
+	2, // 9: models.OrdersService.DeleteOrder:output_type -> models.OrdersEmpty
 	5, // [5:10] is the sub-list for method output_type
 	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -261,7 +309,7 @@ func file_orders_pkg_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_orders_pkg_service_proto_rawDesc), len(file_orders_pkg_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

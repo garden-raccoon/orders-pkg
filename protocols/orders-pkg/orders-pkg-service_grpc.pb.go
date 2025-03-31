@@ -32,7 +32,7 @@ const (
 //
 // OrderService is
 type OrdersServiceClient interface {
-	CreateOrUpdateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*OrdersEmpty, error)
+	CreateOrUpdateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*CreateOrUpdateResponse, error)
 	GetOrders(ctx context.Context, in *OrdersEmpty, opts ...grpc.CallOption) (*Orders, error)
 	// OrdersByUserUuid could return either one or several orders because user could have more than 1
 	OrdersByUserUuid(ctx context.Context, in *ByUserUuidReq, opts ...grpc.CallOption) (*Orders, error)
@@ -49,9 +49,9 @@ func NewOrdersServiceClient(cc grpc.ClientConnInterface) OrdersServiceClient {
 	return &ordersServiceClient{cc}
 }
 
-func (c *ordersServiceClient) CreateOrUpdateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*OrdersEmpty, error) {
+func (c *ordersServiceClient) CreateOrUpdateOrder(ctx context.Context, in *Order, opts ...grpc.CallOption) (*CreateOrUpdateResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(OrdersEmpty)
+	out := new(CreateOrUpdateResponse)
 	err := c.cc.Invoke(ctx, OrdersService_CreateOrUpdateOrder_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -105,7 +105,7 @@ func (c *ordersServiceClient) DeleteOrder(ctx context.Context, in *OrderDeleteRe
 //
 // OrderService is
 type OrdersServiceServer interface {
-	CreateOrUpdateOrder(context.Context, *Order) (*OrdersEmpty, error)
+	CreateOrUpdateOrder(context.Context, *Order) (*CreateOrUpdateResponse, error)
 	GetOrders(context.Context, *OrdersEmpty) (*Orders, error)
 	// OrdersByUserUuid could return either one or several orders because user could have more than 1
 	OrdersByUserUuid(context.Context, *ByUserUuidReq) (*Orders, error)
@@ -122,7 +122,7 @@ type OrdersServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedOrdersServiceServer struct{}
 
-func (UnimplementedOrdersServiceServer) CreateOrUpdateOrder(context.Context, *Order) (*OrdersEmpty, error) {
+func (UnimplementedOrdersServiceServer) CreateOrUpdateOrder(context.Context, *Order) (*CreateOrUpdateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrUpdateOrder not implemented")
 }
 func (UnimplementedOrdersServiceServer) GetOrders(context.Context, *OrdersEmpty) (*Orders, error) {
