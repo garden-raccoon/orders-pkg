@@ -16,6 +16,7 @@ service OrdersService {
     // could be only single order by its unique id
     rpc OrderByOrderUuid(ByOrderUuidReq) returns(models.Order);
 
+    rpc OrdersByMealsUuid(ByMealsUuidReq) returns(models.Orders);
 
     rpc DeleteOrder(OrderDeleteReq) returns(OrdersEmpty);
 
@@ -34,3 +35,7 @@ message ByOrderUuidReq {
 message ByUserUuidReq {
    bytes   user_uuid    = 1;
 }
+message ByMealsUuidReq {
+    bytes   meals_uuid    = 1;
+}
+

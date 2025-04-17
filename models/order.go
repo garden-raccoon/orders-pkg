@@ -50,7 +50,6 @@ func OrdersToProto(orders []*Order) (*proto.Orders, error) {
 func OrdersFromProto(pb *proto.Orders) ([]*Order, error) {
 	var orders []*Order
 	for _, b := range pb.Orders {
-
 		orders = append(orders, OrderFromProto(b))
 	}
 	return orders, nil

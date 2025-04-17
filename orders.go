@@ -28,6 +28,8 @@ type OrdersPkgAPI interface {
 	GetOrders() ([]*models.Order, error)
 	DeleteOrder(orderUuid uuid.UUID) error
 	OrdersByUserUuid(userUuid uuid.UUID) ([]*models.Order, error)
+	OrdersByMealsUuid(mealsUuid uuid.UUID) ([]*models.Order, error)
+
 	OrderByOrderUuid(orderUuid uuid.UUID) (*models.Order, error)
 
 	HealthCheck() error
@@ -120,6 +122,20 @@ func (api *Api) OrdersByUserUuid(userUuid uuid.UUID) ([]*models.Order, error) {
 	defer cancel()
 	req := &proto.ByUserUuidReq{UserUuid: userUuid.Bytes()}
 	resp, err := api.OrdersServiceClient.OrdersByUserUuid(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("OrderAPI OrdersByUserUuid request failed: %w", err)
+	}
+	orders, err := models.OrdersFromProto(resp)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+	return orders, nil
+}
+func (api *Api) OrdersByMealsUuid(mealsUuid uuid.UUID) ([]*models.Order, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), api.timeout)
+	defer cancel()
+	req := &proto.ByMealsUuidReq{MealsUuid: mealsUuid.Bytes()}
+	resp, err := api.OrdersServiceClient.OrdersByMealsUuid(ctx, req)
 	if err != nil {
 		return nil, fmt.Errorf("OrderAPI OrdersByUserUuid request failed: %w", err)
 	}

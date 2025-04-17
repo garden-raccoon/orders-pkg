@@ -23,6 +23,7 @@ const (
 	OrdersService_GetOrders_FullMethodName           = "/models.OrdersService/GetOrders"
 	OrdersService_OrdersByUserUuid_FullMethodName    = "/models.OrdersService/OrdersByUserUuid"
 	OrdersService_OrderByOrderUuid_FullMethodName    = "/models.OrdersService/OrderByOrderUuid"
+	OrdersService_OrdersByMealsUuid_FullMethodName   = "/models.OrdersService/OrdersByMealsUuid"
 	OrdersService_DeleteOrder_FullMethodName         = "/models.OrdersService/DeleteOrder"
 )
 
@@ -38,6 +39,7 @@ type OrdersServiceClient interface {
 	OrdersByUserUuid(ctx context.Context, in *ByUserUuidReq, opts ...grpc.CallOption) (*Orders, error)
 	// could be only single order by its unique id
 	OrderByOrderUuid(ctx context.Context, in *ByOrderUuidReq, opts ...grpc.CallOption) (*Order, error)
+	OrdersByMealsUuid(ctx context.Context, in *ByMealsUuidReq, opts ...grpc.CallOption) (*Orders, error)
 	DeleteOrder(ctx context.Context, in *OrderDeleteReq, opts ...grpc.CallOption) (*OrdersEmpty, error)
 }
 
@@ -89,6 +91,16 @@ func (c *ordersServiceClient) OrderByOrderUuid(ctx context.Context, in *ByOrderU
 	return out, nil
 }
 
+func (c *ordersServiceClient) OrdersByMealsUuid(ctx context.Context, in *ByMealsUuidReq, opts ...grpc.CallOption) (*Orders, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Orders)
+	err := c.cc.Invoke(ctx, OrdersService_OrdersByMealsUuid_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *ordersServiceClient) DeleteOrder(ctx context.Context, in *OrderDeleteReq, opts ...grpc.CallOption) (*OrdersEmpty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(OrdersEmpty)
@@ -111,6 +123,7 @@ type OrdersServiceServer interface {
 	OrdersByUserUuid(context.Context, *ByUserUuidReq) (*Orders, error)
 	// could be only single order by its unique id
 	OrderByOrderUuid(context.Context, *ByOrderUuidReq) (*Order, error)
+	OrdersByMealsUuid(context.Context, *ByMealsUuidReq) (*Orders, error)
 	DeleteOrder(context.Context, *OrderDeleteReq) (*OrdersEmpty, error)
 	mustEmbedUnimplementedOrdersServiceServer()
 }
@@ -133,6 +146,9 @@ func (UnimplementedOrdersServiceServer) OrdersByUserUuid(context.Context, *ByUse
 }
 func (UnimplementedOrdersServiceServer) OrderByOrderUuid(context.Context, *ByOrderUuidReq) (*Order, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OrderByOrderUuid not implemented")
+}
+func (UnimplementedOrdersServiceServer) OrdersByMealsUuid(context.Context, *ByMealsUuidReq) (*Orders, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OrdersByMealsUuid not implemented")
 }
 func (UnimplementedOrdersServiceServer) DeleteOrder(context.Context, *OrderDeleteReq) (*OrdersEmpty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrder not implemented")
@@ -230,6 +246,24 @@ func _OrdersService_OrderByOrderUuid_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrdersService_OrdersByMealsUuid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ByMealsUuidReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrdersServiceServer).OrdersByMealsUuid(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OrdersService_OrdersByMealsUuid_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrdersServiceServer).OrdersByMealsUuid(ctx, req.(*ByMealsUuidReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrdersService_DeleteOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderDeleteReq)
 	if err := dec(in); err != nil {
@@ -270,6 +304,10 @@ var OrdersService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OrderByOrderUuid",
 			Handler:    _OrdersService_OrderByOrderUuid_Handler,
+		},
+		{
+			MethodName: "OrdersByMealsUuid",
+			Handler:    _OrdersService_OrdersByMealsUuid_Handler,
 		},
 		{
 			MethodName: "DeleteOrder",
