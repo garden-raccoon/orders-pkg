@@ -16,7 +16,7 @@ service OrdersService {
     // could be only single order by its unique id
     rpc OrderByOrderUuid(ByOrderUuidReq) returns(models.Order);
 
-    rpc OrdersByMealsUuid(ByMealsUuidReq) returns(models.Orders);
+    rpc DeleteMealsFromParams(ByMealsUuidReq) returns(OrdersEmpty);
 
     rpc DeleteOrder(OrderDeleteReq) returns(OrdersEmpty);
 

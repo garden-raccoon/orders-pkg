@@ -296,13 +296,13 @@ const file_orders_pkg_service_proto_rawDesc = "" +
 	"\tuser_uuid\x18\x01 \x01(\fR\buserUuid\"/\n" +
 	"\x0eByMealsUuidReq\x12\x1d\n" +
 	"\n" +
-	"meals_uuid\x18\x01 \x01(\fR\tmealsUuid2\xf6\x02\n" +
+	"meals_uuid\x18\x01 \x01(\fR\tmealsUuid2\xff\x02\n" +
 	"\rOrdersService\x12D\n" +
 	"\x13CreateOrUpdateOrder\x12\r.models.Order\x1a\x1e.models.CreateOrUpdateResponse\x120\n" +
 	"\tGetOrders\x12\x13.models.OrdersEmpty\x1a\x0e.models.Orders\x129\n" +
 	"\x10OrdersByUserUuid\x12\x15.models.ByUserUuidReq\x1a\x0e.models.Orders\x129\n" +
-	"\x10OrderByOrderUuid\x12\x16.models.ByOrderUuidReq\x1a\r.models.Order\x12;\n" +
-	"\x11OrdersByMealsUuid\x12\x16.models.ByMealsUuidReq\x1a\x0e.models.Orders\x12:\n" +
+	"\x10OrderByOrderUuid\x12\x16.models.ByOrderUuidReq\x1a\r.models.Order\x12D\n" +
+	"\x15DeleteMealsFromParams\x12\x16.models.ByMealsUuidReq\x1a\x13.models.OrdersEmpty\x12:\n" +
 	"\vDeleteOrder\x12\x16.models.OrderDeleteReq\x1a\x13.models.OrdersEmptyB\x16Z\x14protocols/orders-pkgb\x06proto3"
 
 var (
@@ -333,13 +333,13 @@ var file_orders_pkg_service_proto_depIdxs = []int32{
 	2, // 1: models.OrdersService.GetOrders:input_type -> models.OrdersEmpty
 	4, // 2: models.OrdersService.OrdersByUserUuid:input_type -> models.ByUserUuidReq
 	3, // 3: models.OrdersService.OrderByOrderUuid:input_type -> models.ByOrderUuidReq
-	5, // 4: models.OrdersService.OrdersByMealsUuid:input_type -> models.ByMealsUuidReq
+	5, // 4: models.OrdersService.DeleteMealsFromParams:input_type -> models.ByMealsUuidReq
 	1, // 5: models.OrdersService.DeleteOrder:input_type -> models.OrderDeleteReq
 	0, // 6: models.OrdersService.CreateOrUpdateOrder:output_type -> models.CreateOrUpdateResponse
 	7, // 7: models.OrdersService.GetOrders:output_type -> models.Orders
 	7, // 8: models.OrdersService.OrdersByUserUuid:output_type -> models.Orders
 	6, // 9: models.OrdersService.OrderByOrderUuid:output_type -> models.Order
-	7, // 10: models.OrdersService.OrdersByMealsUuid:output_type -> models.Orders
+	2, // 10: models.OrdersService.DeleteMealsFromParams:output_type -> models.OrdersEmpty
 	2, // 11: models.OrdersService.DeleteOrder:output_type -> models.OrdersEmpty
 	6, // [6:12] is the sub-list for method output_type
 	0, // [0:6] is the sub-list for method input_type
