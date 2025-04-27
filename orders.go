@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gofrs/uuid"
+	"google.golang.org/grpc/backoff"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"sync"
@@ -36,6 +37,8 @@ type OrdersPkgAPI interface {
 	HealthCheck() error
 	// Close GRPC Api connection
 	Close() error
+
+	CheckConnection() int
 }
 
 // Api is profile-service GRPC Api
@@ -47,6 +50,10 @@ type Api struct {
 	mu sync.Mutex
 	proto.OrdersServiceClient
 	grpc_health_v1.HealthClient
+}
+
+func (api *Api) CheckConnection() int {
+	return int(api.ClientConn.GetState())
 }
 
 // New create new Battles Api instance
@@ -61,7 +68,12 @@ func New(addr string, timeout time.Duration) (OrdersPkgAPI, error) {
 	api.OrdersServiceClient = proto.NewOrdersServiceClient(api.ClientConn)
 	return api, nil
 }
-
+func (api *Api) Close() error {
+	if err := api.ClientConn.Close(); err != nil {
+		return fmt.Errorf("failed to close ordersAPI grpc client conn:  %w", err)
+	}
+	return nil
+}
 func (api *Api) DeleteOrder(orderUuid uuid.UUID) error {
 	ctx, cancel := context.WithTimeout(context.Background(), api.timeout)
 	defer cancel()
@@ -106,12 +118,20 @@ func (api *Api) CreateOrUpdateOrder(s *models.Order) (uuid.UUID, error) {
 // initConn initialize connection to Grpc servers
 func (api *Api) initConn(addr string) (err error) {
 	var kacp = keepalive.ClientParameters{
-		Time:                10 * time.Second, // send pings every 10 seconds if there is no activity
-		Timeout:             time.Second,      // wait 1 second for ping ack before considering the connection dead
-		PermitWithoutStream: true,             // send pings even without active streams
+		Time:                5 * time.Second, // send pings every 5 seconds if there is no activity
+		Timeout:             time.Second,     // wait 1 second for ping ack before considering the connection dead
+		PermitWithoutStream: true,            // send pings even without active streams
 	}
 
-	api.ClientConn, err = grpc.NewClient(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithKeepaliveParams(kacp))
+	connParams := grpc.WithConnectParams(grpc.ConnectParams{
+		Backoff: backoff.Config{
+			BaseDelay:  100 * time.Millisecond,
+			Multiplier: 1.2,
+			MaxDelay:   1 * time.Second,
+		},
+		MinConnectTimeout: 5 * time.Second,
+	})
+	api.ClientConn, err = grpc.NewClient(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithKeepaliveParams(kacp), connParams)
 	if err != nil {
 		return fmt.Errorf("failed to dial: %w", err)
 	}
